@@ -52,6 +52,17 @@ class NewVisitorTest(LiveServerTestCase):
             delta=10
         )
 
+        # she starts a new list and sees the input is nicely centered as well
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
+
         # She types "Buy peacock feathers" into a text box (Edith's hobby
         # is tying fly-fishing lures)
         inputbox.send_keys('Buy peacock feathers')
