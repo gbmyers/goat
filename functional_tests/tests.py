@@ -6,6 +6,7 @@ import time
 
 MAX_WAIT = 10
 
+
 class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
@@ -29,8 +30,9 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_can_start_a_list_for_one_user(self):
         # Edith has heard about a cool new online to-do app. She goes
-        # to check out its homepate
+        # to check out its homepage
         self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -42,6 +44,12 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
+        )
+        # she notices the input box is nicely centered
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
         )
 
         # She types "Buy peacock feathers" into a text box (Edith's hobby
